@@ -58,9 +58,3 @@ func (garden *Garden) GetAliveDay() int {
 
 	return maxDaysToDie
 }
-
-func main() {
-	garden := Garden{}
-	garden.Read()
-	fmt.Println(garden.GetAliveDay())
-}
