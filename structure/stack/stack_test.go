@@ -21,4 +21,13 @@ func TestLinkedList(t *testing.T) {
 		t.Error("Size should be 2")
 	}
 
+	anotherStack := NewStack()
+	anotherStack.Push(4)
+	anotherStack.Push(5)
+
+	stack.MergeStack(anotherStack)
+	if stack.Size() != 4 {
+		t.Error("Stack size should be 5")
+	}
+
 }

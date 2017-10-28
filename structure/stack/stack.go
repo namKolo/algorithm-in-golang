@@ -10,6 +10,8 @@ type Stack interface {
 	Size() int
 	Top() interface{}
 	Iterate() <-chan interface{}
+	MergeStack(stack Stack)
+	GetCurrentItem() *node
 }
 
 type node struct {
@@ -57,6 +59,14 @@ func (stack *linkedListStack) Top() interface{} {
 	return stack.current.item
 }
 
+func (stack *linkedListStack) GetCurrentItem() *node {
+	if stack.IsEmpty() {
+		return nil
+	}
+
+	return stack.current
+}
+
 func (stack *linkedListStack) Size() int {
 	return stack.depth
 }
@@ -74,4 +84,11 @@ func (stack *linkedListStack) Iterate() <-chan interface{} {
 
 	}()
 	return ch
+}
+
+func (stack *linkedListStack) MergeStack(anotherStack Stack) {
+	if !stack.IsEmpty() && !anotherStack.IsEmpty() {
+		stack.current.next = anotherStack.GetCurrentItem()
+		stack.depth = stack.depth + anotherStack.Size()
+	}
 }
